@@ -110,9 +110,9 @@ int main() {
 
 
 
-        drawGraph(window, [](float x) { return x-9; }, -10, 10, 10, 10, sf::Color::Blue);
+        drawGraph(window, [](float x) { return x-9; }, -10, 10, 10, 10, sf::Color::Red);
 
-        drawGraph(window, [](float x) { return 5*x + 10; }, -10, 10, 10, 10, sf::Color::Red);
+        drawGraph(window, [](float x) { return 5*x + 10; }, -10, 10, 10, 10, sf::Color::Blue);
 
         if (userPointExists) {
             window.draw(userPoint);
@@ -123,4 +123,5 @@ int main() {
     }
 
     return 0;
+
 }
