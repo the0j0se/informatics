@@ -44,7 +44,7 @@ namespace MyTests
 
         TEST_METHOD(TestC_MaxS)
         {
-            float x = 1.0f, y = 2.0f;  // R=0, S=2
+            float x = 1.0f, y = 2.0f;
             float R = 0.0f, S = 0.0f, C = 0.0f;
 
             Calculate(x, y, R, S, C);
@@ -53,3 +53,4 @@ namespace MyTests
         }
     };
 }
+
