@@ -1,33 +1,21 @@
-﻿#include <iostream>
+#include <iostream>
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
 #include <ctime>
 #include <chrono>
 #include <type_traits>
+#include <functional> 
 
 using namespace std;
 
 template <typename Func, typename... Args>
-auto measure_execution_time(Func&& func, Args&&... args)
--> typename enable_if<!is_void<decltype(func(forward<Args>(args)...))>::value, long long>::type
-{
+long long measure_execution_time(Func&& func, Args&&... args) {
     auto start_time = chrono::high_resolution_clock::now();
-    auto result = func(forward<Args>(args)...);
-    auto end_time = chrono::high_resolution_clock::now();
 
-    auto duration = chrono::duration_cast<chrono::milliseconds>(end_time - start_time);
-    return duration.count();
-}
-
-template <typename Func, typename... Args>
-auto measure_execution_time(Func&& func, Args&&... args)
--> typename enable_if<is_void<decltype(func(forward<Args>(args)...))>::value, long long>::type
-{
-    auto start_time = chrono::high_resolution_clock::now();
     func(forward<Args>(args)...);
-    auto end_time = chrono::high_resolution_clock::now();
 
+    auto end_time = chrono::high_resolution_clock::now();
     auto duration = chrono::duration_cast<chrono::milliseconds>(end_time - start_time);
     return duration.count();
 }
@@ -105,14 +93,14 @@ int main() {
     cout << "--- Insertion Sort ---" << endl;
     for (size_t n : sizes) {
         vector<int> vec = make_vector(n);
-        auto time_ms = measure_execution_time(InsertionSort, vec);
+        auto time_ms = measure_execution_time(InsertionSort, ref(vec));
         cout << "Razmer " << n << ": " << time_ms << " mc" << endl;
     }
 
     cout << "\n--- Radix Sort ---" << endl;
     for (size_t n : sizes) {
         vector<int> vec = make_vector(n);
-        auto time_ms = measure_execution_time(RadixSort, vec);
+        auto time_ms = measure_execution_time(RadixSort, ref(vec));
         cout << "Razmer " << n << ": " << time_ms << " mc" << endl;
     }
 
